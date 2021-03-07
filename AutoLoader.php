@@ -7,7 +7,6 @@ class AutoLoader
 
         // Abstracts
         'Enum' => __DIR__ . '/Abstracts/Enum.php',
-        'Model' => __DIR__ . '/Abstracts/Model.php',
 
         // Enums
         'Columns' => __DIR__ . '/Enums/Columns.php',

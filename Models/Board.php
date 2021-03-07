@@ -1,6 +1,6 @@
 <?php
 
-class Board extends Model
+class Board
 {
     /** @var Square[] */
     protected $availableSquares = [];

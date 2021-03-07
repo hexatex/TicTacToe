@@ -1,6 +1,6 @@
 <?php
 
-class Mark extends Model
+class Mark
 {
     /** @var Symbols|string */
     protected $symbol;
