@@ -10,7 +10,7 @@ class Options
 
     public function __construct()
     {
-        $this->options = getopt('g:h', ['games:', 'help']);
+        $this->options = getopt('g:hn', ['games:', 'help', 'no-display']);
     }
 
     public function needsHelp(): bool
@@ -20,7 +20,7 @@ class Options
 
     public function getHelp(): string
     {
-        return "usage: php app.php [-h | --help] [-g | --games=<gameCount>]" . PHP_EOL;
+        return "usage: php app.php [-h | --help] [-g | --games=<gameCount>] [-n | --no-display]" . PHP_EOL;
     }
 
     public function gameCount(): ?int
@@ -30,5 +30,10 @@ class Options
         }
 
         return $this->gameCount;
+    }
+
+    public function noDisplay(): bool
+    {
+        return isset($this->options['n']) || isset($this->options['no-display']);
     }
 }

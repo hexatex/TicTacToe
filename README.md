@@ -1,7 +1,7 @@
 # TicTacToe
 
 ## Usage
-`php app.php [-h | --help] [-g | --games=<gameCount>]`
+`usage: php app.php [-h | --help] [-g | --games=<gameCount>] [-n | --no-display]`
 
 ## Output
 `php app.php -g 2`
@@ -30,3 +30,6 @@ X: 0 Y: 1 Draw: 1
 
 Y Wins
 ```
+
+## Notes
+It seems like who ever plays first gets a slight advantage, when moves are randomly selected

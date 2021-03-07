@@ -30,9 +30,13 @@ class App
      */
     public function main()
     {
-        for ($i = 1; $i <= $this->options->gameCount(); $i++) {
-            $this->playGame($i);
+        if ($this->options->noDisplay()) {
+            $this->withoutDisplay();
+        } else {
+            $this->withDisplay();
         }
+
+        echo $this->newLine() . "X: {$this->xScore} Y: {$this->yScore} Draw: {$this->drawCount}" . $this->newLine(2);
 
         if ($this->xScore > $this->yScore) {
             echo "X Wins";
@@ -45,14 +49,36 @@ class App
         echo $this->newLine();
     }
 
-    private function playGame(int $i): void
+    public function withDisplay(): void
+    {
+        for ($i = 1; $i <= $this->options->gameCount(); $i++) {
+            $board = $this->playGame();
+
+            $result = $board->isDraw() ? 'Draw' : $board->getWinningSymbol();
+
+            echo $this->newLine() . "# Game {$i}, {$result}" . $this->newLine(2);
+            echo $this->row($board, Rows::one);
+            echo $this->divider();
+            echo $this->row($board, Rows::two);
+            echo $this->divider();
+            echo $this->row($board, Rows::three);
+        }
+    }
+
+    public function withoutDisplay(): void
+    {
+        for ($i = 1; $i <= $this->options->gameCount(); $i++) {
+            $this->playGame();
+        }
+    }
+
+    private function playGame(): Board
     {
         $board = $this->boardService->get();
 
-        $symbol = Symbols::x;
+        $symbol = Arr::randomElement([Symbols::x, Symbols::o]);
         while(!$board->isOver()) {
-            $squares = $board->getAvailableSquares();
-            $square = $squares[array_rand($squares, 1)];
+            $square = Arr::randomElement($board->getAvailableSquares());
 
             $mark = new Mark($symbol, $square);
             $board->addMark($mark);
@@ -69,16 +95,7 @@ class App
             throw new \Exception('There is a glitch in the matrix');
         }
 
-        $result = $board->isDraw() ? 'Draw' : $board->getWinningSymbol();
-
-        echo $this->newLine() . "# Game {$i}, {$result}" . $this->newLine(2);
-        echo $this->row($board, Rows::one);
-        echo $this->divider();
-        echo $this->row($board, Rows::two);
-        echo $this->divider();
-        echo $this->row($board, Rows::three);
-        echo $this->newLine();
-        echo "X: {$this->xScore} Y: {$this->yScore} Draw: {$this->drawCount}" . $this->newLine(2);
+        return $board;
     }
 
     private function row(Board $board, int $row): string
