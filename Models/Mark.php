@@ -14,8 +14,6 @@ class Mark
      */
     public function __construct(string $symbol, Square $square)
     {
-        parent::__construct();
-
         $this->symbol = $symbol;
         $this->square = $square;
     }
