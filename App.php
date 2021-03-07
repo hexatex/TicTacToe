@@ -45,16 +45,6 @@ class App
         echo $this->newLine();
     }
 
-    public function gameCount(): int
-    {
-        $cliCount = argv[1];
-        if (is_numeric($cliCount)) {
-            return (int)$cliCount;
-        }
-
-        return (int)readline('How many games would you like to play? ');
-    }
-
     private function playGame(int $i): void
     {
         $board = $this->boardService->get();
