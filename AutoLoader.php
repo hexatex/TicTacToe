@@ -22,6 +22,15 @@ class AutoLoader
         'Mark' => __DIR__ . '/Models/Mark.php',
         'Square' => __DIR__ . '/Models/Square.php',
 
+        // Models/Contracts
+        'Player' => __DIR__ . '/Models/Contracts/Player.php',
+
+        // Models/Player
+        'WackyInflatableTubeMan' => __DIR__ . '/Models/Player/WackyInflatableTubeMan.php',
+
+        // Models/Traits
+        'IsPlayer' => __DIR__ . '/Models/Traits/IsPlayer.php',
+
         // Services
         'BoardService' => __DIR__ . '/Services/BoardService.php',
         'SquareService' => __DIR__ . '/Services/SquareService.php',

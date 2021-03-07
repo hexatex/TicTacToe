@@ -74,15 +74,12 @@ class App
 
     private function playGame(): Board
     {
-        $board = $this->boardService->get();
+        $playerA = new WackyInflatableTubeMan;
+        $playerB = new WackyInflatableTubeMan;
+        $board = $this->boardService->get($playerA, $playerB);
 
-        $symbol = Arr::randomElement([Symbols::x, Symbols::o]);
         while(!$board->isOver()) {
-            $square = Arr::randomElement($board->getAvailableSquares());
-
-            $mark = new Mark($symbol, $square);
-            $board->addMark($mark);
-            $symbol = $symbol === Symbols::x ? Symbols::o : Symbols::x;
+            $board->playTurn();
         }
 
         if ($board->getWinningSymbol() === Symbols::x) {

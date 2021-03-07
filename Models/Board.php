@@ -1,9 +1,18 @@
 <?php
 
-class Board
+class Board extends Model
 {
     /** @var Square[] */
     protected $availableSquares = [];
+
+    /** @var Player */
+    protected $playerX;
+
+    /** @var Player */
+    protected $playerO;
+
+    /** @var string Symbols|int */
+    protected $turnSymbol = Symbols::x;
 
     /** @var Mark[] */
     protected $marks = [];
@@ -27,6 +36,30 @@ class Board
     public function getAvailableSquares(): array
     {
         return $this->availableSquares;
+    }
+
+    public function setPlayers(Player $playerA, Player $playerB): void
+    {
+        $playerA->setBoard($this);
+        $playerB->setBoard($this);
+
+        /** @var Player[] $randomOrder */
+        $randomOrder = Arr::randomOrder([$playerA, $playerB]);
+        $randomOrder[0]->setSymbol(Symbols::x);
+        $randomOrder[1]->setSymbol(Symbols::o);
+
+        $this->playerX = $randomOrder[0];
+        $this->playerO = $randomOrder[1];
+    }
+
+    public function playTurn(): void
+    {
+        $player = $this->turnSymbol === Symbols::x ? $this->playerX : $this->playerO;
+
+        $mark = $player->getNextMark();
+        $this->addMark($mark);
+
+        $this->turnSymbol = $this->turnSymbol === Symbols::x ? Symbols::o : Symbols::x;
     }
 
     public function addMark(Mark $mark): void
@@ -60,6 +93,14 @@ class Board
     public function getMark(int $row, int $column): ?Mark
     {
         return $this->marks[$row][$column] ?? null;
+    }
+
+    /**
+     * @return Mark[]
+     */
+    public function getMarks(): array
+    {
+        return $this->marks;
     }
 
     public function isOver(): bool

@@ -10,9 +10,10 @@ class BoardService
         $this->squareService = new SquareService;
     }
 
-    public function get(): Board
+    public function get(Player $playerA, Player $playerB): Board
     {
         $board = new Board;
+        $board->setPlayers($playerA, $playerB);
 
         foreach ($this->squareService->index() as $square) {
             $board->addAvailableSquare($square);
