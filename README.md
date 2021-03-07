@@ -4,6 +4,8 @@
 `php app.php [-h | --help] [-g | --games=<gameCount>]`
 
 ## Output
+`php app.php -g 2`
+
 ```
 # Game 1, Draw
 
