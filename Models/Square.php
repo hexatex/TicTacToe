@@ -1,6 +1,6 @@
 <?php
 
-class Square
+class Square extends Model
 {
     /** @var Rows|int */
     protected $row;
@@ -10,6 +10,8 @@ class Square
 
     public function __construct(int $row, int $column)
     {
+        parent::__construct();
+
         $this->row = $row;
         $this->column = $column;
     }

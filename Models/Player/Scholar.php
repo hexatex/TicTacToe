@@ -32,8 +32,7 @@ class Scholar implements Player
             // need to grab weighted random
         }
 
-        $outcome = new Outcome;
-        $outcome->hashBoard($this->turn, $this->board, $mark);
+        $outcome = new Outcome($this->turn, $this->board, $mark);
         $this->outcomesByHash[$outcome->getBoardHash()][] = $outcome;
         $this->outcomesByBoard[$this->board->getCode()][] = $outcome;
         $this->outcomesByPrevOutcome[$this->lastOutcome->getCode()] = $outcome;

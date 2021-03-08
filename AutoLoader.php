@@ -6,7 +6,9 @@ class AutoLoader
         'Options' => __DIR__ . '/Options.php',
 
         // Abstracts
+        'ModelCollection' => __DIR__ . '/Abstracts/ModelCollection.php',
         'Enum' => __DIR__ . '/Abstracts/Enum.php',
+        'Model' => __DIR__ . '/Abstracts/Model.php',
 
         // Enums
         'Columns' => __DIR__ . '/Enums/Columns.php',
@@ -28,12 +30,19 @@ class AutoLoader
         // Models/Player
         'WackyInflatableTubeMan' => __DIR__ . '/Models/Player/WackyInflatableTubeMan.php',
 
+        // Models/Player/Round
+        'Round' => __DIR__ . '/Models/Player/Round/Round.php',
+        'RoundCollection' => __DIR__ . '/Models/Player/Round/RoundCollection.php',
+
         // Models/Traits
         'IsPlayer' => __DIR__ . '/Models/Traits/IsPlayer.php',
 
         // Services
         'BoardService' => __DIR__ . '/Services/BoardService.php',
         'SquareService' => __DIR__ . '/Services/SquareService.php',
+
+        // Services/Player/Round
+        'RoundService' => __DIR__ . '/Services/Player/Round/RoundService.php',
 
         // Traits
         'HasCode' => __DIR__ . '/Traits/HasCode.php',

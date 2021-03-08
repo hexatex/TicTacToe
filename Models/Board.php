@@ -27,7 +27,7 @@ class Board extends Model
 
     public function addAvailableSquare(Square $square): void
     {
-        $this->availableSquares[] = $square;
+        $this->availableSquares[$square->getCode()] = $square;
     }
 
     /**

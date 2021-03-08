@@ -2,14 +2,38 @@
 
 class Outcome extends Model
 {
-    protected $boardHash;
+    /** @var int */
+    protected $turn;
 
-    public function hashBoard(int $turn, Board $board, Mark $nextMark): void
+    /** @var Board */
+    protected $board;
+
+    /** @var Mark */
+    protected $mark;
+
+    /** @var string */
+    protected $boardHash = '';
+
+    /** @var WeightedOutcomes */
+    protected $nextOutcomes;
+
+    public function __construct(int $turn, Board $board, Mark $mark)
     {
-        $this->boardHash = $turn;
+        parent::__construct();
 
-        $rows = $board->getMarks();
-        $rows[$nextMark->getSquare()->getRow()][$nextMark->getSquare()->getColumn()] = $nextMark;
+        $this->turn = $turn;
+        $this->board = $board;
+        $this->mark = $mark;
+        $this->hashBoard();
+        $this->generateNextOutcomes();
+    }
+
+    public function hashBoard(): void
+    {
+        $this->boardHash = $this->turn;
+
+        $rows = $this->board->getMarks();
+        $rows[$this->mark->getSquare()->getRow()][$this->mark->getSquare()->getColumn()] = $this->mark;
 
         ksort($rows);
         foreach ($rows as &$row) {
@@ -27,5 +51,20 @@ class Outcome extends Model
     public function getBoardHash(): string
     {
         return $this->boardHash;
+    }
+
+    public function getNextMark(): Mark
+    {
+        return $this->mark;
+    }
+
+    /*
+     * Private
+     */
+    private function generateNextOutcomes(): void
+    {
+        $this->nextOutcomes = new WeightedOutcomes;
+
+        $availableSquares = $this->board->getAvailableSquares();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/AutoLoader.php';
+require_once __DIR__ . '/Globals.php';
 
 class App
 {
@@ -30,6 +31,10 @@ class App
      */
     public function main()
     {
+        $playerA = new WackyInflatableTubeMan;
+        $playerB = new WackyInflatableTubeMan;
+        (new RoundService)->getRounds($this->boardService->get($playerA, $playerB));
+
         if ($this->options->noDisplay()) {
             $this->withoutDisplay();
         } else {
